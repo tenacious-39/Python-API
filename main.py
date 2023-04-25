@@ -24,9 +24,13 @@ def codechef(ccUsername):
         starRating = doc.find(class_="rating").get_text()
         if ratingNum[0] == '0':
             ratingNum = "0"
-        return jsonify(isValid=True, username=ccUsername, problems=fullySolved, rating=ratingNum, star=starRating)
+        response= jsonify(isValid=True, username=ccUsername, problems=fullySolved, rating=ratingNum, star=starRating)
+        response.headers.add("Access-Control-Allow-Origin", "*")
+        return response
     except:
-        return jsonify(isValid=False)
+        response= jsonify(isValid=False)
+        response.headers.add("Access-Control-Allow-Origin", "*")
+        return response
 
 
 # Codeforces route
@@ -42,9 +46,13 @@ def codeforces(cfUsername):
         fullySolved = doc.find(class_="_UserActivityFrame_counterValue").get_text()
         totalContests = findTotalContests(cfUsername)
         print(totalContests)
-        return jsonify(isValid=True, rating=ratingInfo, category=ratingCategory, problems=fullySolved, contest=totalContests)
+        response = jsonify(isValid=True, rating=ratingInfo, category=ratingCategory, problems=fullySolved, contest=totalContests)
+        response.headers.add("Access-Control-Allow-Origin", "*")
+        return response
     except:
-        return jsonify(isValid=False)
+        response= jsonify(isValid=False)
+        response.headers.add("Access-Control-Allow-Origin", "*")
+        return response
 
 def findTotalContests(cfUsername):
     urlcfContest = "https://codeforces.com/contests/with/"+cfUsername
@@ -75,11 +83,15 @@ def leetcode(lcUsername):
         hardSolved= doc.select_one("#__next > div > div.mx-auto.w-full.grow.p-4.md\:mt-0.md\:max-w-\[888px\].md\:p-6.lg\:max-w-screen-xl.mt-\[50px\] > div > div.w-full.lc-lg\:max-w-\[calc\(100\%_-_316px\)\] > div.flex.w-full.flex-col.space-x-0.space-y-4.lc-xl\:flex-row.lc-xl\:space-y-0.lc-xl\:space-x-4 > div.min-w-max.max-w-full.w-full.flex-1 > div > div.mx-3.flex.items-center.lc-xl\:mx-8 > div.flex.w-full.flex-col.space-y-4.lc-xl\:max-w-\[228px\] > div:nth-child(3) > div.flex.w-full.items-end.text-xs > div.flex.flex-1.items-center > span.mr-\[5px\].text-base.font-medium.leading-\[20px\].text-label-1.dark\:text-dark-label-1")
         mediumSolved= doc.select_one("#__next > div > div.mx-auto.w-full.grow.p-4.md\:mt-0.md\:max-w-\[888px\].md\:p-6.lg\:max-w-screen-xl.mt-\[50px\] > div > div.w-full.lc-lg\:max-w-\[calc\(100\%_-_316px\)\] > div.flex.w-full.flex-col.space-x-0.space-y-4.lc-xl\:flex-row.lc-xl\:space-y-0.lc-xl\:space-x-4 > div.min-w-max.max-w-full.w-full.flex-1 > div > div.mx-3.flex.items-center.lc-xl\:mx-8 > div.flex.w-full.flex-col.space-y-4.lc-xl\:max-w-\[228px\] > div:nth-child(2) > div.flex.w-full.items-end.text-xs > div.flex.flex-1.items-center > span.mr-\[5px\].text-base.font-medium.leading-\[20px\].text-label-1.dark\:text-dark-label-1")
         easySolved= doc.select_one("#__next > div > div.mx-auto.w-full.grow.p-4.md\:mt-0.md\:max-w-\[888px\].md\:p-6.lg\:max-w-screen-xl.mt-\[50px\] > div > div.w-full.lc-lg\:max-w-\[calc\(100\%_-_316px\)\] > div.flex.w-full.flex-col.space-x-0.space-y-4.lc-xl\:flex-row.lc-xl\:space-y-0.lc-xl\:space-x-4 > div.min-w-max.max-w-full.w-full.flex-1 > div > div.mx-3.flex.items-center.lc-xl\:mx-8 > div.flex.w-full.flex-col.space-y-4.lc-xl\:max-w-\[228px\] > div:nth-child(1) > div.flex.w-full.items-end.text-xs > div.flex.flex-1.items-center > span.mr-\[5px\].text-base.font-medium.leading-\[20px\].text-label-1.dark\:text-dark-label-1")
-        return jsonify(isValid=True, rating=rating, total_problems=fullySolved.string,
+        response = jsonify(isValid=True, rating=rating, total_problems=fullySolved.string,
                        hard_problems=hardSolved.string, medium_problems=mediumSolved.string, easy_problems=
                        easySolved.string)
+        response.headers.add("Access-Control-Allow-Origin", "*")
+        return response
     except:
-        return jsonify(isValid=False)
+        response = jsonify(isValid=False)
+        response.headers.add("Access-Control-Allow-Origin", "*")
+        return response
     
 
 @app.route('/gfg/<string:gfgUsername>')
@@ -95,10 +107,14 @@ def gfg(gfgUsername):
         easySolved=problemLevels[2].get_text()
         mediumSolved=problemLevels[3].get_text()
         hardSolved=problemLevels[4].get_text()
-        return jsonify(isValid=True, total_problems=problems, easy_problems=easySolved, medium_problems=
+        response = jsonify(isValid=True, total_problems=problems, easy_problems=easySolved, medium_problems=
                        mediumSolved, hard_problems=hardSolved)
+        response.headers.add("Access-Control-Allow-Origin", "*")
+        return response
     except:
-        return jsonify(isValid=False)
+        response = jsonify(isValid=False)
+        response.headers.add("Access-Control-Allow-Origin", "*")
+        return response
 
 
 
